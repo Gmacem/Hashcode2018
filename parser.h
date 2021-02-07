@@ -11,7 +11,7 @@ struct Point {
 
 struct Ride {
     Point from, to;
-    int s, f;
+    int s, f, id;
 };
 
 struct TestConfig {
@@ -27,6 +27,7 @@ TestConfig ParseFile(std::istream& in) {
     for (int i = 0; i < config.N; ++i) {
         Ride ride;
         in >> ride.from.x >> ride.from.y >> ride.to.x >> ride.to.y >> ride.s >> ride.f;
+        ride.id = i;
         config.rides.emplace_back(ride);
     }
     return config;
