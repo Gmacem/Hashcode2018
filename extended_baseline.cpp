@@ -3,6 +3,8 @@
 
 using namespace std;
 
+const int MAX_FORWARD = 100;
+
 int main() {
     auto f = ParseFile(std::cin);
     auto ans = Answer(f);
@@ -13,18 +15,28 @@ int main() {
         return lhs.s < rhs.s;
     });
 
+
     for (int i = 0; i < f.F; ++i) {
         Point pos{0, 0};
         int t = 0;
         for (int j = 0; j < f.N; ++j) {
-            if (used[j]) {
+            if (used[j] || !hasTime(pos, t, f.rides[j])) {
                 continue;
             }
-            if (hasTime(pos, t, f.rides[j])) {
-                moveVeh(pos, t, f.rides[j]);
-                used[j] = true;
-                ans.AddRide(i, f.rides[j].id);
+            int best_id = j;
+            for (int z = j, k = 0; k < MAX_FORWARD && z < f.N; ++z, ++k) {
+                if (used[z] || !hasTime(pos, t, f.rides[z])) {
+                    continue;
+                }
+                int start_time = t + dist(pos, f.rides[z].from);
+                if (start_time <= f.rides[z].s) {
+                    best_id = z;
+                    break;
+                }
             }
+            moveVeh(pos, t, f.rides[best_id]);
+            used[best_id] = true;
+            ans.AddRide(i, f.rides[best_id].id);
         }
     }
 

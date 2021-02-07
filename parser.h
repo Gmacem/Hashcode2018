@@ -4,6 +4,7 @@
 #include <vector>
 #include <istream>
 #include <assert.h>
+#include <exception>
 
 struct Point {
     int x, y;
@@ -60,6 +61,8 @@ public:
 
         if (finish_time <= ride.f) {
             score_ += d;
+        } else {
+            throw std::runtime_error("no score ride");
         }
 
         if (start_time == ride.s) {
