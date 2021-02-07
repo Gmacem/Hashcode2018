@@ -31,6 +31,7 @@ int main() {
             }
             int start_time = std::max(cur_t + dist(cur_pos, ride.from), ride.s);
             int pos_score = dist(mid, cur_pos);
+            pos_score = 0;
             if (start_time == ride.s) {
                 if (!in_time || worst_pos < pos_score) {
                     best_id = j;
@@ -44,11 +45,7 @@ int main() {
                 }
             }
         }
-        //std::cout << i << " " << best_id << '\n';
         if (best_id != -1) {
-            //std::cout << pos[best_id].x << " " << pos[best_id].y << " " << t[best_id] << '\n';
-            //std::cout << ride.from.x << " " << ride.from.y << " " << ride.s << '\n';
-            //std::cout << ride.to.x << " " << ride.to.y << " " << ride.s << '\n';
             ans.AddRide(best_id, ride.id);
             moveVeh(pos[best_id], t[best_id], ride);
         }
