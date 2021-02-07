@@ -52,7 +52,26 @@ public:
         assert(veh >= 0 && veh < config_.F);
         assert(r_id >= 0 && r_id < config_.N);
         assert(!used_[r_id]);
-        int start_time = t_[veh] + dist(pos_[veh], config_.rides[r_id]);
+        const Ride& ride = config_.rides[r_id];
+        int start_time = std::max(t_[veh] + dist(pos_[veh], ride.from), ride.s);
+        int d = dist(ride.from, ride.to);
+        int finish_time = start_time + d;
+
+        if (finish_time <= ride.f) {
+            score_ += d;
+        }
+
+        if (start_time == ride.s) {
+            score_ += config_.B;
+        }
+
+        pos_[veh] = ride.to;
+        t_[veh] = finish_time;
+        used_[r_id] = true;
+    }
+
+    void ShowScore() {
+        std::cout << "Your score: " << score_ << '\n';
     }
 
 private:
@@ -63,3 +82,4 @@ private:
     std::vector<bool> used_; 
     long long score_ = 0;
 };
+
