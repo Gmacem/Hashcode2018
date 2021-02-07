@@ -84,3 +84,19 @@ private:
     long long score_ = 0;
 };
 
+inline bool hasTime(const Point& start_pos, int t, const Ride& ride) {
+    int start_time = std::max(t + dist(start_pos, ride.from), ride.s);
+    int d = dist(ride.from, ride.to);
+    int finish_time = start_time + d;
+
+    return finish_time <= ride.f;
+}
+
+void moveVeh(Point& start_pos, int& t, const Ride& ride) {
+    int start_time = std::max(t + dist(start_pos, ride.from), ride.s);
+    int d = dist(ride.from, ride.to);
+    int finish_time = start_time + d;
+
+    t = finish_time;
+    start_pos = ride.to;
+}
