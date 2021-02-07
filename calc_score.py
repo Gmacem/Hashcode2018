@@ -12,6 +12,7 @@ if __name__ == "__main__":
             print("Filename:", filename)
             print(output)
             max_scores.append(max(score, int(output.split()[-1])))
+    print("New total score:", sum(max_scores))
     with open("max_score.txt", "w") as fout:
         for score, filename in zip(max_scores, ["a_example.in", "b_should_be_easy.in", "c_no_hurry.in", "d_metropolis.in", "e_high_bonus.in"]):
             fout.write("{} {}\n".format(filename, score))

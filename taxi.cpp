@@ -15,7 +15,16 @@ int main() {
 
     vector<int> t(f.F, 0);
     vector<Point> pos(f.F, Point{0, 0});
-    Point mid{f.R / 2, f.C / 2};
+    long long sum_x = 0;
+    long long sum_y = 0;
+    for (int i = 0; i < f.rides.size(); ++i) {
+        sum_x += f.rides[i].from.x;
+        sum_y += f.rides[i].from.y;
+    }
+    
+    int mid_x = sum_x / f.rides.size();
+    int mid_y = sum_y / f.rides.size();
+    Point mid{mid_x, mid_y};
 
     for (int i = 0; i < f.N; ++i) {
         int best_id = -1;
@@ -31,7 +40,6 @@ int main() {
             }
             int start_time = std::max(cur_t + dist(cur_pos, ride.from), ride.s);
             int pos_score = dist(mid, cur_pos);
-            pos_score = 0;
             if (start_time == ride.s) {
                 if (!in_time || worst_pos < pos_score) {
                     best_id = j;
