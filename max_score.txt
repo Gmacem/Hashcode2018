@@ -1,6 +1,6 @@
 a_example.in 10
 b_should_be_easy.in 176877
 c_no_hurry.in 15802143
-d_metropolis.in 9743872
+d_metropolis.in 11108651
 e_high_bonus.in 21465945
-Summarize: 47188847
+Summarize: 48553626
